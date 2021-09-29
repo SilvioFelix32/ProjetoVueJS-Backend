@@ -1,0 +1,3 @@
+knex migrate:make create_users_table
+
+knex migrate:latest

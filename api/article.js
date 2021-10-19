@@ -76,8 +76,8 @@ module.exports = app => {
     const getByCategory = async (req, res) => {
         const categoryId = req.params.id
         const page = req.query.page || 1
-        const categories = await app.db.raw(queries.categoryWithChildren, categoryId)
-        const ids = categories.rows.map(c => c.id)
+        const categories = await app.db.raw(queries.categoryWithChildren(categoryId))
+        const ids = categories[0].map(c => c.id) //troquei rows pelo indice 0
 
         app.db({a: 'articles', u: 'users'})
             .select('a.id', 'a.name', 'a.description', 'a.imageUrl', { author: 'u.name' })
